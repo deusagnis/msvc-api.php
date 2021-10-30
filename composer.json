@@ -1,0 +1,23 @@
+{
+  "name": "mggflow/msvc-api",
+  "description": "Send requests to laravel microservice",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Pavel Eliseev",
+      "email": "deusagnis@gmail.com",
+      "homepage": "https://mggflow.in",
+      "role": "Developer"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "MGGFLOW\\Microservices\\": "src"
+    }
+  },
+  "require": {
+    "guzzlehttp/guzzle": "7.4.x-dev"
+  }
+}
