@@ -7,9 +7,25 @@ use GuzzleHttp\Psr7\Response;
 
 class Api
 {
+    /**
+     * Params that will be included in every request.
+     * @var array
+     */
     public array $defaultParams = [];
+    /**
+     * Type of request params.
+     * @var string
+     */
     public string $paramsType = 'form_params';
+    /**
+     * Options of request. Check GuzzleHTTP Client->request method.
+     * @var array
+     */
     public array $requestOptions = [];
+    /**
+     * Received response will be here.
+     * @var Response|null
+     */
     public ?Response $response = null;
 
     protected Client $client;
@@ -37,11 +53,21 @@ class Api
         $this->fullMsvcApiUrl = $this->msvcApiUrl . '/' . $this->msvcName;
     }
 
+    /**
+     * Wrapper around API object name setter.
+     * @param $name
+     * @return $this
+     */
     public function __get($name)
     {
         return $this->setObjectName($name);
     }
 
+    /**
+     * Set API object name.
+     * @param $name
+     * @return $this
+     */
     public function setObjectName($name): self
     {
         $this->objectName = $name;
@@ -49,6 +75,12 @@ class Api
         return $this;
     }
 
+    /**
+     * Wrapper about preparing to send request.
+     * @param $name
+     * @param $arguments
+     * @return $this
+     */
     public function __call($name, $arguments)
     {
         $this->setActionName($name);
@@ -64,6 +96,11 @@ class Api
         return $this;
     }
 
+    /**
+     * Set API action name.
+     * @param $name
+     * @return $this
+     */
     public function setActionName($name): self
     {
         $this->actionName = $name;
@@ -71,12 +108,21 @@ class Api
         return $this;
     }
 
+    /**
+     * Remove previous request data.
+     * @return void
+     */
     protected function resetCallData()
     {
         $this->requestOptions = [];
         $this->response = null;
     }
 
+    /**
+     * Set params of request to API.
+     * @param $params
+     * @return $this
+     */
     public function setParams($params): self
     {
         $this->params = array_merge($this->defaultParams, $params);
@@ -84,6 +130,11 @@ class Api
         return $this;
     }
 
+    /**
+     * Send request to API.
+     * @return false|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function send()
     {
         $this->prepareRequestOptions();
@@ -142,6 +193,10 @@ class Api
         return $content ?? false;
     }
 
+    /**
+     * Set request type as Form.
+     * @return $this
+     */
     public function asForm(): self
     {
         $this->paramsType = $this->asFormParamsType;
@@ -149,6 +204,10 @@ class Api
         return $this;
     }
 
+    /**
+     * Set request type as Multipart.
+     * @return $this
+     */
     public function asMultipart(): self
     {
         $this->paramsType = $this->asMultipartParamsType;
