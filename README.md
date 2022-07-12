@@ -13,14 +13,14 @@ composer require mggflow/msvc-api
 
 Example:
 ```
- use MGGFLOW\Microservices\Api;
+use MGGFLOW\Microservices\Api;
  
- $msvcName = "msvc_name";
- $apiUrl = "https://url.to/api";
+$msvcName = "msvc_name";
+$apiUrl = "https://url.to/api";
 // Create instance of API.
- $api = new Api($msvcName, $apiUrl);
+$api = new Api($msvcName, $apiUrl);
 // Send request to action "hello" of microservice with param "name".
- $resp = $api->hello(["name" => "John"])->send();
+$resp = $api->hello(["name" => "John"])->send();
 // Returns json decoded response or false.
- var_dump($resp);
+var_dump($resp);
 ```
